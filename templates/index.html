@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Expectancy Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="active">Home</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Floating animation elements -->
+    <div class="floating-elements">
+        <div class="floating-ball"></div>
+        <div class="floating-ball"></div>
+        <div class="floating-ball"></div>
+        <div class="floating-ball"></div>
+        <div class="floating-ball"></div>
+    </div>
+    
+    <div class="container">
+        <section class="hero-section">
+            <h1 class="main-title">Life Expectancy Predictor</h1>
+            <p class="description">
+                Using advanced machine learning algorithms to forecast life expectancy based on comprehensive health and economic factors. 
+                Enter your data to get an instant, scientifically-backed prediction.
+            </p>
+            <a href="{{ url_for('predict_form') }}" class="start-btn">
+                <span class="btn-text">Start Prediction</span>
+                <span class="btn-arrow">→</span>
+            </a>
+        </section>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon-container">
+                    <span class="feature-icon">⚡</span>
+                </div>
+                <h3>Instant AI Analysis</h3>
+                <p>Get accurate life expectancy predictions in seconds using our advanced Random Forest machine learning model trained on global health data.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-container">
+                    <span class="feature-icon">📊</span>
+                </div>
+                <h3>Evidence-Based Results</h3>
+                <p>Powered by comprehensive datasets from WHO and World Bank, analyzing 16+ key health indicators across 193 countries worldwide.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-container">
+                    <span class="feature-icon">💡</span>
+                </div>
+                <h3>Actionable Insights</h3>
+                <p>Understand which lifestyle and demographic factors most significantly impact longevity to make informed health decisions.</p>
+            </div>
+        </div>
+        
+        <div class="stats-section">
+            <div class="stat-item">
+                <span class="stat-number">96%</span>
+                <span class="stat-label">Model Accuracy</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">193</span>
+                <span class="stat-label">Countries Analyzed</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">16+</span>
+                <span class="stat-label">Health Factors</span>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Life Expectancy Prediction Project. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

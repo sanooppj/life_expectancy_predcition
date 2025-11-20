@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('predict_form') }}">Data Entry</a></li>
+            <li><a href="#" class="active">Results</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="results-container">
+            <h1>AI Prediction Analysis</h1>
+            <div class="result-card">
+                <div class="prediction-display">
+                    <div class="life-expectancy-circle">
+                        <span class="expectancy-number">{{ prediction }}</span>
+                        <span class="expectancy-label">Years</span>
+                    </div>
+                    <div class="prediction-text">
+                        <h2>Predicted Life Expectancy</h2>
+                        <p>Based on the comprehensive health and socioeconomic data you provided, our advanced machine learning model predicts a life expectancy of approximately <strong>{{ prediction }} years</strong>.</p>
+                        
+                        <!-- Animated Confidence Score -->
+                        <div class="confidence-section">
+                            <div class="confidence-header">
+                                <span class="confidence-label">🎯 Model Accuracy</span>
+                                <span class="confidence-value" id="confidenceValue">0%</span>
+                            </div>
+                            <div class="confidence-bar-container">
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" id="confidenceFill" data-accuracy="{{ accuracy }}"></div>
+                                </div>
+                                <div class="confidence-markers">
+                                    <span>0%</span>
+                                    <span>25%</span>
+                                    <span>50%</span>
+                                    <span>75%</span>
+                                    <span>100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Chart -->
+            <!-- <div class="chart-container">
+                <h3>📊 Life Expectancy Comparison</h3>
+                <div class="comparison-chart">
+                    <div class="chart-item">
+                        <div class="chart-bar global-bar">
+                            <div class="bar-fill" style="height: 72%;">
+                                <span class="bar-value">72</span>
+                            </div>
+                        </div>
+                        <div class="chart-label">Global Average</div>
+                    </div>
+                    <div class="chart-item predicted">
+                        <div class="chart-bar predicted-bar">
+                            <div class="bar-fill" style="height: {{ (prediction|float / 85 * 100)|round }}%;">
+                                <span class="bar-value">{{ prediction }}</span>
+                            </div>
+                        </div>
+                        <div class="chart-label">Your Prediction</div>
+                    </div>
+                    <div class="chart-item">
+                        <div class="chart-bar optimal-bar">
+                            <div class="bar-fill" style="height: 95%;">
+                                <span class="bar-value">85</span>
+                            </div>
+                        </div>
+                        <div class="chart-label">High Development</div>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Key Factors Insight -->
+            <!-- <div class="insights-container">
+                <h3>🔍 Key Health Insights</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">💉</div>
+                        <div class="insight-content">
+                            <h4>Immunization Impact</h4>
+                            <p>Vaccination coverage significantly influences population health outcomes</p>
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">💰</div>
+                        <div class="insight-content">
+                            <h4>Economic Factors</h4>
+                            <p>GDP per capita and healthcare spending affect longevity trends</p>
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">🎓</div>
+                        <div class="insight-content">
+                            <h4>Education Level</h4>
+                            <p>Years of schooling correlate with better health awareness</p>
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">⚕️</div>
+                        <div class="insight-content">
+                            <h4>Healthcare Access</h4>
+                            <p>Quality healthcare systems reduce mortality rates effectively</p>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+
+            <div class="actions-section">
+                 <a href="{{ url_for('predict_form') }}" class="btn btn-primary">
+                    <span class="btn-icon">🔄</span> New Prediction
+                </a>
+                 <button class="btn btn-secondary" onclick="window.print()">
+                    <span class="btn-icon">📊</span> Print Results
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate confidence bar on page load
+        window.addEventListener('load', function() {
+            const confidenceFill = document.getElementById('confidenceFill');
+            const confidenceValue = document.getElementById('confidenceValue');
+            const targetAccuracy = parseInt(confidenceFill.dataset.accuracy);
+            
+            setTimeout(() => {
+                confidenceFill.style.width = targetAccuracy + '%';
+                
+                // Animate the number counting up
+                let currentValue = 0;
+                const increment = targetAccuracy / 50; // 50 steps for smooth animation
+                
+                const countAnimation = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= targetAccuracy) {
+                        currentValue = targetAccuracy;
+                        clearInterval(countAnimation);
+                    }
+                    confidenceValue.textContent = Math.round(currentValue) + '%';
+                }, 40); // Update every 40ms
+                
+            }, 500); // Start animation after 500ms
+
+            // Animate score bars
+            setTimeout(() => {
+                const scoreFills = document.querySelectorAll('.score-fill');
+                scoreFills.forEach((fill, index) => {
+                    setTimeout(() => {
+                        fill.style.width = fill.style.width;
+                        fill.style.opacity = '1';
+                    }, index * 200);
+                });
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
